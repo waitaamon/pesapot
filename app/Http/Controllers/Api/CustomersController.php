@@ -3,7 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\Customer;
-use App\Http\Resources\CustomerResource;
+use App\Http\Controllers\Controller;
+use App\Http\Resources\{CustomerResource, CustomersCollection};
 use App\Http\Requests\Customer\{StoreCustomerRequest, UpdateCustomerRequest};
 
 class CustomersController extends Controller
@@ -11,9 +12,9 @@ class CustomersController extends Controller
 
     public function index()
     {
-        $customers = Customer::all();
+        $customers = Customer::paginate(request()->get('per_page'));
 
-        return response(CustomerResource::collection($customers));
+        return response(new CustomersCollection($customers));
     }
 
     public function store(StoreCustomerRequest $request)

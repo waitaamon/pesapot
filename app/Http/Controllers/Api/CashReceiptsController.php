@@ -2,18 +2,29 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Models\Customer;
 use Carbon\Carbon;
 use App\Models\CashReceipt;
-use App\Http\Resources\CashReceiptResource;
+use App\Http\Controllers\Controller;
+use App\Http\Resources\{CashReceiptResource, CashReceiptsCollection, CustomerResource};
 use App\Http\Requests\Customer\{StoreCashReceiptRequest, UpdateCashReceiptRequest};
 
 class CashReceiptsController extends Controller
 {
+    public function prerequisites()
+    {
+        $customers = Customer::all();
+
+        return response()->json([
+            'customers' => CustomerResource::collection($customers)
+        ]);
+    }
+
     public function index()
     {
-        $receipts = CashReceipt::with('customer')->get();
+        $receipts = CashReceipt::paginate(request()->get('per_page'));
 
-        return response(CashReceiptResource::collection($receipts));
+        return response(new CashReceiptsCollection($receipts));
     }
 
     public function store(StoreCashReceiptRequest $request)

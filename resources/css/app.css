@@ -1,3 +1,112 @@
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
+
+.vm-backdrop {
+    background-color: rgba(0, 0, 0, .5)
+}
+
+.vm-backdrop, .vm-wrapper {
+    bottom: 0;
+    left: 0;
+    position: fixed;
+    right: 0;
+    top: 0
+}
+
+.vm-wrapper {
+    outline: 0;
+    overflow-x: hidden;
+    overflow-y: auto
+}
+
+.vm {
+    background-color: #fff;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, .5);
+    cursor: default;
+    margin: 0 auto;
+    max-width: 800px;
+    min-width: 110px;
+    position: relative;
+    top: 30px;
+    border-radius: 6px;
+    width: calc(100% - 20px);
+
+}
+
+.vm-titlebar {
+    overflow: auto;
+    padding: 10px 15px
+}
+
+.vm-title {
+    display: inline-block;
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+    font-weight: 700;
+    margin-bottom: 0;
+}
+
+.vm-btn-close {
+    background: 0 0;
+    border: 0;
+    color: #ccc;
+    cursor: pointer;
+    float: right;
+    font-size: 24px;
+    line-height: 1em;
+    padding: 0
+}
+
+.vm-btn-close:before {
+    content: "×";
+    font-family: Arial
+}
+
+.vm-btn-close:focus, .vm-btn-close:focus:hover, .vm-btn-close:hover {
+    background-color: transparent;
+    border-color: transparent;
+    color: #bbb
+}
+
+.vm-content {
+    padding: 10px 15px 15px
+}
+
+.vm-content .full-hr {
+    border: 0;
+    border-top: 1px solid #e5e5e5;
+    margin: 15px -14px;
+    width: auto
+}
+
+.vm-fadeIn {
+    animation-name: vm-fadeIn
+}
+
+@keyframes vm-fadeIn {
+    0% {
+        opacity: 0
+    }
+    to {
+        opacity: 1
+    }
+}
+
+.vm-fadeOut {
+    animation-name: vm-fadeOut
+}
+
+@keyframes vm-fadeOut {
+    0% {
+        opacity: 1
+    }
+    to {
+        opacity: 0
+    }
+}
+
+.vm-fadeIn, .vm-fadeOut {
+    animation-duration: .25s;
+    animation-fill-mode: both
+}
