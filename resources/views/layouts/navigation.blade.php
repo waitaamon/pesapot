@@ -23,6 +23,14 @@
                     <x-nav-link :href="route('cashReceipt')" :active="request()->routeIs('cashReceipt')">
                         {{ __('Cash Receipt') }}
                     </x-nav-link>
+
+                    <x-nav-link :href="route('suppliersIndex')" :active="request()->routeIs('suppliersIndex')">
+                        {{ __('Supplier') }}
+                    </x-nav-link>
+
+                    <x-nav-link :href="route('cashPayment')" :active="request()->routeIs('cashPayment')">
+                        {{ __('Cash Payments') }}
+                    </x-nav-link>
                 </div>
             </div>
 

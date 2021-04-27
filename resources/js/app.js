@@ -18,6 +18,9 @@ Vue.component('date-picker', DatePicker)
 Vue.component('customers-list', require('./app/customers/CustomersList.vue').default)
 Vue.component('cash-receipt-list', require('./app/customers/CashReceiptsList.vue').default)
 
+Vue.component('suppliers-list', require('./app/suppliers/SuppliersList.vue').default)
+Vue.component('cash-payments-list', require('./app/suppliers/CashPaymentsList.vue').default)
+
 Vue.use(VueToast, {
     position: 'top-right'
 });

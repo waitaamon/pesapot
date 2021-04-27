@@ -29,7 +29,7 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::apiResource('api/suppliers', \App\Http\Controllers\Api\SuppliersController::class);
 
-    Route::get('cash-payment', \App\Http\Controllers\CashReceiptsController::class)->name('cashPayment');
+    Route::get('cash-payment', \App\Http\Controllers\CashPaymentsController::class)->name('cashPayment');
 
     Route::get('api/cash-payment-prerequisites', [\App\Http\Controllers\Api\CashPaymentsController::class, 'prerequisites']);
     Route::post('api/cash-payment-mark-transferred', [\App\Http\Controllers\Api\CashPaymentActionsController::class, 'markTransferred']);
