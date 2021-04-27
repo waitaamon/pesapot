@@ -1,5 +1,6 @@
 <template>
     <div>
+
         <button
             type="button"
             class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150"
@@ -41,9 +42,35 @@
                         </p>
                     </div>
                     <div>
-                        <label for="amount" class="block text-sm font-medium text-gray-700">Date</label>
+                        <label for="date" class="block text-sm font-medium text-gray-700">Date</label>
                         <div class="mt-1">
-
+                            <date-picker class="inline-block h-full w-full" v-model="form.date" id="date">
+                                <template v-slot="{ inputValue, togglePopover }">
+                                    <div class="flex items-center">
+                                        <button
+                                            type="button"
+                                            class="p-2 bg-blue-100 border border-blue-200 hover:bg-blue-200 text-blue-600 rounded-l focus:bg-blue-500 focus:text-white focus:border-blue-500 focus:outline-none"
+                                            @click.prevent="togglePopover()"
+                                        >
+                                            <svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 20 20"
+                                                class="w-4 h-4 fill-current"
+                                            >
+                                                <path
+                                                    d="M1 4c0-1.1.9-2 2-2h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V4zm2 2v12h14V6H3zm2-6h2v2H5V0zm8 0h2v2h-2V0zM5 9h2v2H5V9zm0 4h2v2H5v-2zm4-4h2v2H9V9zm0 4h2v2H9v-2zm4-4h2v2h-2V9zm0 4h2v2h-2v-2z"
+                                                ></path>
+                                            </svg>
+                                        </button>
+                                        <input
+                                            :value="inputValue"
+                                            class="bg-white text-gray-700 w-full py-1 px-2 appearance-none border rounded-r focus:outline-none focus:border-blue-500"
+                                            readonly
+                                            @focus="togglePopover()"
+                                        />
+                                    </div>
+                                </template>
+                            </date-picker>
                         </div>
                         <p v-if="errors.date" class="mt-2 text-sm text-red-600" id="date-error">
                             {{ errors.date[0] }}
@@ -85,33 +112,31 @@
 </template>
 
 <script>
+import AppDropDown from "../../../components/AppDropdown";
+import DropdownItem from "../../../components/partials/DropDownItem";
 export default {
     name: 'cash-receipt-modal',
+    components: {DropdownItem, AppDropDown},
+    props: ['customers'],
     data() {
         return {
             showModal: false,
             closeAfterSave: true,
             errors: {},
-            customers: [],
             form: {
                 customer: '',
                 amount: '',
-                date: '',
+                date: new Date(),
                 note: ''
             }
         }
     },
     methods: {
-        async prerequisites() {
-          try {
-              let response = await axios.get('api/cash-receipt-prerequisites')
-              this.customers = response.data.customers
-          }  catch (e) {
-              console.error('could not fetch prerequisites')
-          }
-        },
         submit() {
-            axios.post('api/cash-receipts', this.form)
+            axios.post('api/cash-receipts', {
+                ...this.form,
+                customer: this.form.customer ? this.form.customer.id : ''
+            })
                 .then(response => {
 
                     this.resetForm()
@@ -141,9 +166,6 @@ export default {
                 note: ''
             }
         }
-    },
-    created() {
-        this.prerequisites()
     }
 }
 </script>

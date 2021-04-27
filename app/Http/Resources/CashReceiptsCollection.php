@@ -15,7 +15,7 @@ class CashReceiptsCollection extends ResourceCollection
     public function toArray($request)
     {
         return [
-            'data' => UserResource::collection($this->collection),
+            'data' => CashReceiptResource::collection($this->collection),
             'pagination' => [
                 'total' => $this->total(),
                 'count' => $this->count(),

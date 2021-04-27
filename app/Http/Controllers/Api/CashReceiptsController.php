@@ -22,7 +22,12 @@ class CashReceiptsController extends Controller
 
     public function index()
     {
-        $receipts = CashReceipt::paginate(request()->get('per_page'));
+        $receipts = CashReceipt::query()
+            ->when(request()->filled('status'), fn($query) => $query->where('status', request()->get('status')))
+            ->when(request()->filled('customer'), fn($query) => $query->where('customer_id', request()->get('customer')))
+            ->when(request()->filled('start'), fn($query) => $query->where('date', '>=', Carbon::parse(request()->get('start'))))
+            ->when(request()->filled('end'), fn($query) => $query->where('date', '<=', Carbon::parse(request()->get('end'))))
+            ->paginate(request()->get('per_page'));
 
         return response(new CashReceiptsCollection($receipts));
     }

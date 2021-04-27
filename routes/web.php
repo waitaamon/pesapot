@@ -16,6 +16,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('cash-receipts', \App\Http\Controllers\CashReceiptsController::class)->name('cashReceipt');
 
     Route::get('api/cash-receipt-prerequisites', [\App\Http\Controllers\Api\CashReceiptsController::class, 'prerequisites']);
+    Route::post('api/cash-receipt-mark-transferred', [\App\Http\Controllers\Api\CashReceiptActionsController::class, 'markTransferred']);
     Route::apiResource('api/cash-receipts', \App\Http\Controllers\Api\CashReceiptsController::class);
 
 });

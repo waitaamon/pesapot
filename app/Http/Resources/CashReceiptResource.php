@@ -16,7 +16,7 @@ class CashReceiptResource extends JsonResource
             'user' => new UserResource($this->whenLoaded('user')),
             'amount' => $this->amount,
             'status' => $this->status,
-            'date' => $this->date,
+            'date' => $this->date->format('d-M-Y'),
             'note' => $this->note,
             'created_at' => $this->created_at->format('d-m-Y H:i:s')
         ];
