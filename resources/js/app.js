@@ -5,6 +5,10 @@ import Multiselect from 'vue-multiselect'
 import 'vue-multiselect/dist/vue-multiselect.min.css'
 import Calendar from 'v-calendar/lib/components/calendar.umd'
 import DatePicker from 'v-calendar/lib/components/date-picker.umd'
+import VueToast from 'vue-toast-notification';
+import 'vue-toast-notification/dist/theme-sugar.css';
+
+
 
 Vue.component('Modal', VueModal);
 Vue.component('multiselect', Multiselect)
@@ -13,6 +17,11 @@ Vue.component('date-picker', DatePicker)
 
 Vue.component('customers-list', require('./app/customers/CustomersList.vue').default)
 Vue.component('cash-receipt-list', require('./app/customers/CashReceiptsList.vue').default)
+
+Vue.use(VueToast, {
+    position: 'top-right'
+});
+
 
 const app = new Vue({
     el: '#app',

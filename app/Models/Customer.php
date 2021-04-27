@@ -17,6 +17,11 @@ class Customer extends Model
         return $this->hasMany(CashReceipt::class);
     }
 
+    public function activeReceipts(): HasMany
+    {
+        return $this->receipts()->where('status', 'active')->orWhere('status', 'transferred');
+    }
+
     public function scopeActive(Builder $query): Builder
     {
         return $query->where('status', 'active');

@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="flex justify-end">
-            <customer-modal @fetch-customers="fetchCustomers"/>
+            <customer-modal @fetch-customers="fetchCustomers" ref="customerModal"/>
         </div>
         <div class="mt-3">
             <div class="overflow-hidden border-b border-gray-200 sm:rounded">
@@ -34,7 +34,7 @@
                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                             <input type="checkbox">
                         </td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 capitalize">
                             {{ customer.name }}
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
@@ -43,13 +43,15 @@
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                             {{ customer.created_at }}
                         </td>
-                        <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                            <a href="#" class="text-indigo-600 hover:text-indigo-900">Edit</a>
+                        <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium space-x-2">
+<!--                            <a :href="`/customers/${customer.id}`" class="text-indigo-600 hover:text-indigo-900">View</a>-->
+                            <a href="#" class="text-red-300 hover:text-red-500" @click.prevent="editCustomer(customer)">Edit</a>
                         </td>
                     </tr>
                     </tbody>
                 </table>
-                <table-pagination :pagination-data="paginationData" @apply-pagination="applyPagination" @apply-per-page="applyPerPage"/>
+                <table-pagination :pagination-data="paginationData" @apply-pagination="applyPagination"
+                                  @apply-per-page="applyPerPage"/>
             </div>
         </div>
     </div>
@@ -65,7 +67,7 @@ export default {
         return {
             customers: [],
             paginationData: {},
-            perPage: 50
+            perPage: 50,
         }
     },
     methods: {
@@ -76,6 +78,10 @@ export default {
         applyPerPage(data) {
             this.perPage = data
             this.fetchCustomers()
+        },
+        editCustomer(customer) {
+            this.$refs.customerModal.customer = customer
+            this.$refs.customerModal.showModal = true
         },
         async fetchCustomers() {
             try {

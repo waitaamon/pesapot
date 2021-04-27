@@ -8,7 +8,7 @@
             New Customer
         </button>
 
-        <Modal v-model="showModal" modalClass="max-width: 700px" title="New Customer">
+        <Modal v-model="showModal" modalClass="max-width: 700px" title="New Customer" v-on:before-open="setDefaults">
             <div class="py-3">
                 <form class="space-y-3">
                     <div>
@@ -53,9 +53,10 @@ export default {
         return {
             showModal: false,
             closeAfterSave: true,
+            customer: null,
             errors: {},
             form: {
-                name: ''
+                name: this.customer ? this.customer.name : ''
             }
         }
     },
@@ -75,7 +76,10 @@ export default {
                 }).catch(e => {
                 if (e.response.status === 422) {
                     this.errors = e.response.data.errors
+                    this.$toast.error('The form submitted has errors');
+                    return
                 }
+                this.$toast.error('Something went wrong try again later');
 
             })
         },
@@ -84,10 +88,15 @@ export default {
             this.submit()
         },
         resetForm() {
+            this.customer = null
+            this.errors = []
             this.form = {
                 name: ''
             }
+        },
+        setDefaults() {
+            this.form.name = this.customer ? this.customer.name : ''
         }
-    }
+    },
 }
 </script>

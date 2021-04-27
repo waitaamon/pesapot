@@ -14,7 +14,7 @@ class CustomerResource extends JsonResource
             'name' => $this->name,
             'status' => $this->status,
             'receipts' => CashReceiptResource::collection($this->whenLoaded('receipts')),
-            'created_at' => $this->created_at->format('d-m-Y H:i:s')
+            'created_at' => $this->created_at->format('d-M-Y')
         ];
     }
 }

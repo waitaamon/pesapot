@@ -9,7 +9,7 @@ class CustomersCollection extends ResourceCollection
     public function toArray($request): array
     {
         return [
-            'data' => UserResource::collection($this->collection),
+            'data' => CustomerResource::collection($this->collection),
             'pagination' => [
                 'total' => $this->total(),
                 'count' => $this->count(),

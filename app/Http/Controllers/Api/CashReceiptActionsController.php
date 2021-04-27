@@ -14,7 +14,7 @@ class CashReceiptActionsController extends Controller
             ->each(fn($receipt) => $receipt->update(['status' => 'transferred']));
     }
 
-    public function export()
+    public function exportExcel()
     {
         
     }

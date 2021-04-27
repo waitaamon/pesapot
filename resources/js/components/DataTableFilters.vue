@@ -145,11 +145,12 @@ export default {
         },
         applyFilters() {
             let data = {
-                entity: this.filters.entity ? this.entity.id : '',
+                entity: this.filters.entity ? this.filters.entity.id : '',
                 status: this.filters.status,
                 start: this.filters.start ? this.filters.start.toDateString() : '',
                 end: this.filters.end ? this.filters.end.toDateString() : ''
             }
+            console.log(data)
 
             this.$emit('apply-filters', data)
         },
