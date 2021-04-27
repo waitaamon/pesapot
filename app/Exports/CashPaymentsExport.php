@@ -4,10 +4,11 @@ namespace App\Exports;
 
 use App\Models\CashPayment;
 use Maatwebsite\Excel\Concerns\FromCollection;
+use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
 
-class CashPaymentsExport implements FromCollection, WithMapping,WithHeadings
+class CashPaymentsExport implements FromCollection, WithMapping,WithHeadings, ShouldAutoSize
 {
     protected array $payments;
 

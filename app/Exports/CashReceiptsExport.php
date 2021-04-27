@@ -4,10 +4,11 @@ namespace App\Exports;
 
 use App\Models\CashReceipt;
 use Maatwebsite\Excel\Concerns\FromCollection;
+use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
 
-class CashReceiptsExport implements FromCollection, WithMapping,WithHeadings
+class CashReceiptsExport implements FromCollection, WithMapping,WithHeadings, ShouldAutoSize
 {
 
     protected array $receipts;
