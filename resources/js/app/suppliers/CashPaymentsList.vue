@@ -167,14 +167,21 @@ export default {
                 return
             }
 
-            try {
-                await axios.post('api/cash-payment-mark-transferred', {
-                    payments: this.selected
-                })
-
-            } catch (e) {
+            axios({
+                method: 'post',
+                url: 'api/cash-payment-export-excel',
+                responseType: 'blob',
+                data: {receipts: this.selected}
+            }).then(response => {
+                const url = window.URL.createObjectURL(new Blob([response.data]));
+                const link = document.createElement('a');
+                link.href = url;
+                link.setAttribute('download', `pesapot-cash-payments.xlsx`);
+                document.body.appendChild(link);
+                link.click();
+            }).catch(e => {
                 this.$toast.error('Something went wrong try again later');
-            }
+            })
         },
         async deleteSelected() {
             if (!this.selected.length) {

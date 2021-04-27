@@ -2,7 +2,8 @@
     <div>
         <div class="grid grid-cols-4 gap-2">
             <div class="col-span-2">
-                <a href="#" @click.prevent="showFilters = !showFilters" class="text-sm text-red-400 hover:text-red-500">{{ showFilters ? 'Hide' : 'Show' }}
+                <a href="#" @click.prevent="showFilters = !showFilters" class="text-sm text-red-400 hover:text-red-500">{{
+                    showFilters ? 'Hide' : 'Show' }}
                     Filters</a>
                 <div v-if="showFilters">
                     <data-table-filters model="customer" :options="customers" @apply-filters="applyFilters"/>
@@ -161,20 +162,28 @@ export default {
             this.filters = data
             this.fetchReceipts()
         },
-        async exportSelected() {
+
+        exportSelected() {
             if (!this.selected.length) {
                 this.$toast.error('Select at least one record');
                 return
             }
 
-            try {
-                await axios.post('api/cash-receipt-mark-transferred', {
-                    receipts: this.selected
-                })
-
-            } catch (e) {
+            axios({
+                method: 'post',
+                url: 'api/cash-receipt-export-excel',
+                responseType: 'blob',
+                data: {receipts: this.selected}
+            }).then(response => {
+                const url = window.URL.createObjectURL(new Blob([response.data]));
+                const link = document.createElement('a');
+                link.href = url;
+                link.setAttribute('download', `pesapot-cash-receipts.xlsx`);
+                document.body.appendChild(link);
+                link.click();
+            }).catch(e => {
                 this.$toast.error('Something went wrong try again later');
-            }
+            })
         },
         async deleteSelected() {
             if (!this.selected.length) {

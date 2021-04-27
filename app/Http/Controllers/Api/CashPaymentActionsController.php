@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Exports\CashPaymentsExport;
 use App\Http\Controllers\Controller;
 use App\Models\CashPayment;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class CashPaymentActionsController extends Controller
 {
@@ -14,9 +16,9 @@ class CashPaymentActionsController extends Controller
             ->each(fn($payment) => $payment->update(['status' => 'transferred']));
     }
 
-    public function exportExcel()
+    public function exportExcel(Request $request)
     {
-        
+        return Excel::download(new CashPaymentsExport($request->payments), 'cash-payments.xlsx');
     }
 
     public function destroy(Request $request)

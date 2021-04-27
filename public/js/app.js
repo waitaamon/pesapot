@@ -1990,6 +1990,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 
 
 
@@ -2078,72 +2079,102 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     exportSelected: function exportSelected() {
       var _this2 = this;
 
+      if (!this.selected.length) {
+        this.$toast.error('Select at least one record');
+        return;
+      }
+
+      axios({
+        method: 'post',
+        url: 'api/cash-receipt-export-excel',
+        responseType: 'blob',
+        data: {
+          receipts: this.selected
+        }
+      }).then(function (response) {
+        var url = window.URL.createObjectURL(new Blob([response.data]));
+        var link = document.createElement('a');
+        link.href = url;
+        link.setAttribute('download', "pesapot-cash-receipts.xlsx");
+        document.body.appendChild(link);
+        link.click();
+      })["catch"](function (e) {
+        _this2.$toast.error('Something went wrong try again later');
+      });
+    },
+    deleteSelected: function deleteSelected() {
+      var _this3 = this;
+
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                if (_this2.selected.length) {
+                if (_this3.selected.length) {
                   _context2.next = 3;
                   break;
                 }
 
-                _this2.$toast.error('Select at least one record');
+                _this3.$toast.error('Select at least one record');
 
                 return _context2.abrupt("return");
 
               case 3:
                 _context2.prev = 3;
                 _context2.next = 6;
-                return axios.post('api/cash-receipt-mark-transferred', {
-                  receipts: _this2.selected
+                return axios.post("api/cash-receipts", {
+                  receipts: _this3.selected
                 });
 
               case 6:
-                _context2.next = 11;
-                break;
+                _context2.next = 8;
+                return _this3.fetchReceipts();
 
               case 8:
-                _context2.prev = 8;
+                _context2.next = 13;
+                break;
+
+              case 10:
+                _context2.prev = 10;
                 _context2.t0 = _context2["catch"](3);
 
-                _this2.$toast.error('Something went wrong try again later');
+                _this3.$toast.error('Something went wrong try again later');
 
-              case 11:
+              case 13:
               case "end":
                 return _context2.stop();
             }
           }
-        }, _callee2, null, [[3, 8]]);
+        }, _callee2, null, [[3, 10]]);
       }))();
     },
-    deleteSelected: function deleteSelected() {
-      var _this3 = this;
+    markTransfer: function markTransfer() {
+      var _this4 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
-                if (_this3.selected.length) {
+                if (_this4.selected.length) {
                   _context3.next = 3;
                   break;
                 }
 
-                _this3.$toast.error('Select at least one record');
+                _this4.$toast.error('Select at least one record');
 
                 return _context3.abrupt("return");
 
               case 3:
                 _context3.prev = 3;
                 _context3.next = 6;
-                return axios.post("api/cash-receipts", {
-                  receipts: _this3.selected
+                return axios.post('api/cash-receipt-mark-transferred', {
+                  receipts: _this4.selected
                 });
 
               case 6:
                 _context3.next = 8;
-                return _this3.fetchReceipts();
+                return _this4.fetchReceipts();
 
               case 8:
                 _context3.next = 13;
@@ -2153,7 +2184,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _context3.prev = 10;
                 _context3.t0 = _context3["catch"](3);
 
-                _this3.$toast.error('Something went wrong try again later');
+                _this4.$toast.error('Something went wrong try again later');
 
               case 13:
               case "end":
@@ -2163,85 +2194,39 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee3, null, [[3, 10]]);
       }))();
     },
-    markTransfer: function markTransfer() {
-      var _this4 = this;
+    fetchReceipts: function fetchReceipts() {
+      var _this5 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4() {
+        var _this5$filters, _this5$filters$entity, _this5$filters2, _this5$filters2$statu, _this5$filters3, _this5$filters3$start, _this5$filters4, _this5$filters4$end, response;
+
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee4$(_context4) {
           while (1) {
             switch (_context4.prev = _context4.next) {
               case 0:
-                if (_this4.selected.length) {
-                  _context4.next = 3;
-                  break;
-                }
-
-                _this4.$toast.error('Select at least one record');
-
-                return _context4.abrupt("return");
-
-              case 3:
-                _context4.prev = 3;
-                _context4.next = 6;
-                return axios.post('api/cash-receipt-mark-transferred', {
-                  receipts: _this4.selected
-                });
-
-              case 6:
-                _context4.next = 8;
-                return _this4.fetchReceipts();
-
-              case 8:
-                _context4.next = 13;
-                break;
-
-              case 10:
-                _context4.prev = 10;
-                _context4.t0 = _context4["catch"](3);
-
-                _this4.$toast.error('Something went wrong try again later');
-
-              case 13:
-              case "end":
-                return _context4.stop();
-            }
-          }
-        }, _callee4, null, [[3, 10]]);
-      }))();
-    },
-    fetchReceipts: function fetchReceipts() {
-      var _this5 = this;
-
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee5() {
-        var _this5$filters, _this5$filters$entity, _this5$filters2, _this5$filters2$statu, _this5$filters3, _this5$filters3$start, _this5$filters4, _this5$filters4$end, response;
-
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee5$(_context5) {
-          while (1) {
-            switch (_context5.prev = _context5.next) {
-              case 0:
-                _context5.prev = 0;
-                _context5.next = 3;
+                _context4.prev = 0;
+                _context4.next = 3;
                 return axios.get("api/cash-receipts?per_page=".concat(_this5.perPage, "&customer=").concat((_this5$filters$entity = (_this5$filters = _this5.filters).entity) !== null && _this5$filters$entity !== void 0 ? _this5$filters$entity : _this5$filters.entity = '', "&status=").concat((_this5$filters2$statu = (_this5$filters2 = _this5.filters).status) !== null && _this5$filters2$statu !== void 0 ? _this5$filters2$statu : _this5$filters2.status = 'active', "&start=").concat((_this5$filters3$start = (_this5$filters3 = _this5.filters).start) !== null && _this5$filters3$start !== void 0 ? _this5$filters3$start : _this5$filters3.start = '', "&end=").concat((_this5$filters4$end = (_this5$filters4 = _this5.filters).end) !== null && _this5$filters4$end !== void 0 ? _this5$filters4$end : _this5$filters4.end = ''));
 
               case 3:
-                response = _context5.sent;
+                response = _context4.sent;
                 _this5.receipts = response.data.data;
                 _this5.paginationData = response.data.pagination;
-                _context5.next = 11;
+                _context4.next = 11;
                 break;
 
               case 8:
-                _context5.prev = 8;
-                _context5.t0 = _context5["catch"](0);
+                _context4.prev = 8;
+                _context4.t0 = _context4["catch"](0);
 
                 _this5.$toast.error('Something went wrong try again later');
 
               case 11:
               case "end":
-                return _context5.stop();
+                return _context4.stop();
             }
           }
-        }, _callee5, null, [[0, 8]]);
+        }, _callee4, null, [[0, 8]]);
       }))();
     }
   },
@@ -2949,28 +2934,30 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 return _context2.abrupt("return");
 
               case 3:
-                _context2.prev = 3;
-                _context2.next = 6;
-                return axios.post('api/cash-payment-mark-transferred', {
-                  payments: _this2.selected
+                axios({
+                  method: 'post',
+                  url: 'api/cash-payment-export-excel',
+                  responseType: 'blob',
+                  data: {
+                    receipts: _this2.selected
+                  }
+                }).then(function (response) {
+                  var url = window.URL.createObjectURL(new Blob([response.data]));
+                  var link = document.createElement('a');
+                  link.href = url;
+                  link.setAttribute('download', "pesapot-cash-payments.xlsx");
+                  document.body.appendChild(link);
+                  link.click();
+                })["catch"](function (e) {
+                  _this2.$toast.error('Something went wrong try again later');
                 });
 
-              case 6:
-                _context2.next = 11;
-                break;
-
-              case 8:
-                _context2.prev = 8;
-                _context2.t0 = _context2["catch"](3);
-
-                _this2.$toast.error('Something went wrong try again later');
-
-              case 11:
+              case 4:
               case "end":
                 return _context2.stop();
             }
           }
-        }, _callee2, null, [[3, 8]]);
+        }, _callee2);
       }))();
     },
     deleteSelected: function deleteSelected() {
