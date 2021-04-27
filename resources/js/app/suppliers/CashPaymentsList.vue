@@ -171,7 +171,7 @@ export default {
                 method: 'post',
                 url: 'api/cash-payment-export-excel',
                 responseType: 'blob',
-                data: {receipts: this.selected}
+                data: {payments: this.selected}
             }).then(response => {
                 const url = window.URL.createObjectURL(new Blob([response.data]));
                 const link = document.createElement('a');

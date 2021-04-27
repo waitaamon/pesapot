@@ -2939,7 +2939,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   url: 'api/cash-payment-export-excel',
                   responseType: 'blob',
                   data: {
-                    receipts: _this2.selected
+                    payments: _this2.selected
                   }
                 }).then(function (response) {
                   var url = window.URL.createObjectURL(new Blob([response.data]));
