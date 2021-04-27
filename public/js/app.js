@@ -1991,6 +1991,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -2574,7 +2578,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.form = {
         customer: '',
         amount: '',
-        date: '',
+        date: new Date(),
         note: ''
       };
     }
@@ -2722,6 +2726,11 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+//
+//
+//
+//
+//
 //
 //
 //
@@ -3432,7 +3441,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.form = {
         supplier: '',
         amount: '',
-        date: '',
+        date: new Date(),
         note: ''
       };
     }
@@ -63648,7 +63657,8 @@ var render = function() {
         _c(
           "a",
           {
-            staticClass: "text-sm text-red-400 hover:text-red-500",
+            staticClass:
+              "mb-2 block text-sm tracking-wide font-bold text-red-600 hover:text-red-800",
             attrs: { href: "#" },
             on: {
               click: function($event) {
@@ -63659,8 +63669,9 @@ var render = function() {
           },
           [
             _vm._v(
-              _vm._s(_vm.showFilters ? "Hide" : "Show") +
-                "\n                Filters"
+              "\n                " +
+                _vm._s(_vm.showFilters ? "Hide" : "Show") +
+                " Filters\n            "
             )
           ]
         ),
@@ -64840,7 +64851,8 @@ var render = function() {
         _c(
           "a",
           {
-            staticClass: "text-sm text-red-400 hover:text-red-500",
+            staticClass:
+              "mb-2 block text-sm tracking-wide font-bold text-red-600 hover:text-red-800",
             attrs: { href: "#" },
             on: {
               click: function($event) {
@@ -64851,8 +64863,9 @@ var render = function() {
           },
           [
             _vm._v(
-              _vm._s(_vm.showFilters ? "Hide" : "Show") +
-                "\n                Filters"
+              "\n                " +
+                _vm._s(_vm.showFilters ? "Hide" : "Show") +
+                " Filters\n            "
             )
           ]
         ),

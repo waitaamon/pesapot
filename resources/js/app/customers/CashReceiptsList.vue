@@ -2,9 +2,13 @@
     <div>
         <div class="grid grid-cols-4 gap-2">
             <div class="col-span-2">
-                <a href="#" @click.prevent="showFilters = !showFilters" class="text-sm text-red-400 hover:text-red-500">{{
-                    showFilters ? 'Hide' : 'Show' }}
-                    Filters</a>
+                <a
+                    href="#"
+                    @click.prevent="showFilters = !showFilters"
+                    class="mb-2 block text-sm tracking-wide font-bold text-red-600 hover:text-red-800"
+                >
+                    {{ showFilters ? 'Hide' : 'Show' }} Filters
+                </a>
                 <div v-if="showFilters">
                     <data-table-filters model="customer" :options="customers" @apply-filters="applyFilters"/>
                 </div>

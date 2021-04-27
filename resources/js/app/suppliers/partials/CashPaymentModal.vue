@@ -164,7 +164,7 @@ export default {
             this.form = {
                 supplier: '',
                 amount: '',
-                date: '',
+                date: new Date(),
                 note: ''
             }
         }

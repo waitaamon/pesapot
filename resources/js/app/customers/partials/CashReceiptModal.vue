@@ -164,7 +164,7 @@ export default {
             this.form = {
                 customer: '',
                 amount: '',
-                date: '',
+                date: new Date(),
                 note: ''
             }
         }
