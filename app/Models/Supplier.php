@@ -12,14 +12,14 @@ class Supplier extends Model
 
     protected $fillable  = ['name', 'status'];
 
-    public function receipts(): HasMany
+    public function payments(): HasMany
     {
-        return $this->hasMany(CashReceipt::class);
+        return $this->hasMany(CashPayment::class);
     }
 
     public function activeReceipts(): HasMany
     {
-        return $this->receipts()->where('status', 'active')->orWhere('status', 'transferred');
+        return $this->payments()->where('status', 'active')->orWhere('status', 'transferred');
     }
 
     public function scopeActive(Builder $query): Builder
