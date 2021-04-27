@@ -1,8 +1,0 @@
-root password: nxYvY+>&h6!cu)Pp
-
-ip: 159.89.2.153
-username: pot_admin
-password: R3T;rcBgFtQ.?d8J
-
-database
-password: SQxEZXX79b6GQ4fn
