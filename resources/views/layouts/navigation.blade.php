@@ -1,4 +1,4 @@
-<nav class="bg-blue-100 border-b border-white">
+<nav class="bg-blue-800 border-b border-white">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
@@ -6,7 +6,7 @@
                 <!-- Logo -->
                 <div class="flex-shrink-0 flex items-center">
                     <a href="{{ route('dashboard') }}">
-                        <x-application-logo class="block h-10 w-auto fill-current text-gray-600"/>
+                        <x-application-logo class="block h-10 w-auto fill-current text-gray-100"/>
                     </a>
                 </div>
 
@@ -39,7 +39,7 @@
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
                         <div class="flex space-x-2">
-                            <button class="flex items-center text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
+                            <button class="flex items-center text-sm font-medium text-gray-300 hover:text-gray-100 hover:border-gray-100 focus:outline-none focus:text-gray-100 focus:border-gray-100 transition duration-150 ease-in-out">
                                 <div>{{ Auth::user()->name }}</div>
                             </button>
                             <form method="POST" action="{{ route('logout') }}">
