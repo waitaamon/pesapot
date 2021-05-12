@@ -49,7 +49,7 @@
                     </app-drop-down>
                 </div>
 
-                <cash-receipt-modal :customers="customers" @fetch-receipts="fetchReceipts"/>
+                <cash-receipt-modal :customers="customers" @fetch-receipts="fetchReceipts" ref="receiptModal"/>
             </div>
         </div>
         <div class="mt-3">
@@ -77,9 +77,9 @@
                             class=" px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                             Date
                         </th>
-                        <!--                        <th scope="col" class="relative px-6 py-3">-->
-                        <!--                            <span class="sr-only">Edit</span>-->
-                        <!--                        </th>-->
+                        <th scope="col" class="relative px-6 py-3">
+                            <span class="sr-only">Edit</span>
+                        </th>
                     </tr>
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200">
@@ -99,9 +99,9 @@
                         <td class="px-6 py-4 whitespace-nowrap text-gray-500">
                             {{ receipt.date }}
                         </td>
-                        <!--                        <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">-->
-                        <!--                            <a href="#" class="text-indigo-600 hover:text-indigo-900">Edit</a>-->
-                        <!--                        </td>-->
+                        <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                            <a @click.prevent="editReceipt(receipt)" href="#" class="text-indigo-600 hover:text-indigo-900">Edit</a>
+                        </td>
                     </tr>
                     </tbody>
                 </table>
@@ -165,6 +165,11 @@ export default {
         applyFilters(data) {
             this.filters = data
             this.fetchReceipts()
+        },
+
+        editReceipt(receipt) {
+            this.$refs.receiptModal.receipt = receipt
+            this.$refs.receiptModal.showModal = true
         },
 
         exportSelected() {

@@ -13,6 +13,7 @@ class CashReceiptResource extends JsonResource
             'id' => $this->id,
             'customer' => new CustomerResource($this->whenLoaded('customer')),
             'customer_name' => $this->customer->name,
+            'customer_id' => $this->customer->id,
             'user' => new UserResource($this->whenLoaded('user')),
             'amount' => $this->amount,
             'status' => $this->status,

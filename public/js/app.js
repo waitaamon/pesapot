@@ -2761,6 +2761,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.filters = data;
       this.fetchReceipts();
     },
+    editReceipt: function editReceipt(receipt) {
+      this.$refs.receiptModal.receipt = receipt;
+      this.$refs.receiptModal.showModal = true;
+    },
     exportSelected: function exportSelected() {
       var _this2 = this;
 
@@ -3217,6 +3221,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       showModal: false,
       closeAfterSave: true,
       errors: {},
+      receipt: null,
       form: {
         customer: '',
         amount: '',
@@ -3229,9 +3234,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     submit: function submit() {
       var _this = this;
 
-      axios.post('api/cash-receipts', _objectSpread(_objectSpread({}, this.form), {}, {
-        customer: this.form.customer ? this.form.customer.id : ''
-      })).then(function (response) {
+      axios({
+        method: this.receipt ? 'patch' : 'post',
+        url: this.receipt ? "api/cash-receipts/".concat(this.receipt.id) : "api/buildings",
+        data: _objectSpread(_objectSpread({}, this.form), {}, {
+          customer: this.form.customer ? this.form.customer.id : ''
+        })
+      }).then(function (response) {
         _this.resetForm();
 
         _this.$emit('fetch-receipts', true);
@@ -3262,6 +3271,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         date: new Date(),
         note: ''
       };
+    },
+    setDefaults: function setDefaults() {
+      var _this2 = this;
+
+      this.form.customer = this.receipt ? this.customers.find(function (customer) {
+        return customer.id === _this2.receipt.customer_id;
+      }) : '';
+      this.form.amount = this.receipt ? this.receipt.amount : '';
+      this.form.date = this.receipt ? this.receipt.date : '';
+      this.form.note = this.receipt ? this.receipt.note : '';
     }
   }
 });
@@ -64435,6 +64454,7 @@ var render = function() {
           ),
           _vm._v(" "),
           _c("cash-receipt-modal", {
+            ref: "receiptModal",
             attrs: { customers: _vm.customers },
             on: { "fetch-receipts": _vm.fetchReceipts }
           })
@@ -64553,7 +64573,9 @@ var render = function() {
                       "\n                        Date\n                    "
                     )
                   ]
-                )
+                ),
+                _vm._v(" "),
+                _vm._m(0)
               ])
             ]),
             _vm._v(" "),
@@ -64666,6 +64688,30 @@ var render = function() {
                           "\n                    "
                       )
                     ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "td",
+                    {
+                      staticClass:
+                        "px-6 py-4 whitespace-nowrap text-right text-sm font-medium"
+                    },
+                    [
+                      _c(
+                        "a",
+                        {
+                          staticClass: "text-indigo-600 hover:text-indigo-900",
+                          attrs: { href: "#" },
+                          on: {
+                            click: function($event) {
+                              $event.preventDefault()
+                              return _vm.editReceipt(receipt)
+                            }
+                          }
+                        },
+                        [_vm._v("Edit")]
+                      )
+                    ]
                   )
                 ])
               }),
@@ -64686,7 +64732,18 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "th",
+      { staticClass: "relative px-6 py-3", attrs: { scope: "col" } },
+      [_c("span", { staticClass: "sr-only" }, [_vm._v("Edit")])]
+    )
+  }
+]
 render._withStripped = true
 
 
@@ -64949,6 +65006,7 @@ var render = function() {
         "Modal",
         {
           attrs: { modalClass: "max-width: 700px", title: "New cash Receipt" },
+          on: { "before-open": _vm.setDefaults },
           model: {
             value: _vm.showModal,
             callback: function($$v) {

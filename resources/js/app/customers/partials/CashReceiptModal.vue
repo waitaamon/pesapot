@@ -9,7 +9,7 @@
             New Cash Receipt
         </button>
 
-        <Modal v-model="showModal" modalClass="max-width: 700px" title="New cash Receipt">
+        <Modal v-model="showModal" modalClass="max-width: 700px" title="New cash Receipt" v-on:before-open="setDefaults">
             <div class="py-3">
                 <form class="space-y-4">
                     <div>
@@ -114,6 +114,7 @@
 <script>
 import AppDropDown from "../../../components/AppDropdown";
 import DropdownItem from "../../../components/partials/DropDownItem";
+
 export default {
     name: 'cash-receipt-modal',
     components: {DropdownItem, AppDropDown},
@@ -123,19 +124,25 @@ export default {
             showModal: false,
             closeAfterSave: true,
             errors: {},
+            receipt: null,
             form: {
                 customer: '',
                 amount: '',
                 date: new Date(),
-                note: ''
+                note: '',
             }
         }
     },
     methods: {
         submit() {
-            axios.post('api/cash-receipts', {
-                ...this.form,
-                customer: this.form.customer ? this.form.customer.id : ''
+
+            axios({
+                method: this.receipt ? 'patch' : 'post',
+                url: this.receipt ? `api/cash-receipts/${this.receipt.id}` : `api/buildings`,
+                data: {
+                    ...this.form,
+                    customer: this.form.customer ? this.form.customer.id : ''
+                }
             })
                 .then(response => {
 
@@ -167,6 +174,12 @@ export default {
                 date: new Date(),
                 note: ''
             }
+        },
+        setDefaults() {
+            this.form.customer = this.receipt ? this.customers.find(customer => customer.id === this.receipt.customer_id) : ''
+            this.form.amount = this.receipt ? this.receipt.amount : ''
+            this.form.date = this.receipt ? this.receipt.date : ''
+            this.form.note = this.receipt ? this.receipt.note : ''
         }
     }
 }
