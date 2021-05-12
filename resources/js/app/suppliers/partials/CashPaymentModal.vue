@@ -9,7 +9,7 @@
             New Cash Payment
         </button>
 
-        <Modal v-model="showModal" modalClass="max-width: 700px" title="New Cash Payment">
+        <Modal v-model="showModal" modalClass="max-width: 700px" title="New Cash Payment" v-on:before-open="setDefaults">
             <div class="py-3">
                 <form class="space-y-4">
                     <div>
@@ -123,6 +123,7 @@ export default {
             showModal: false,
             closeAfterSave: true,
             errors: {},
+            payment: null,
             form: {
                 supplier: '',
                 amount: '',
@@ -133,9 +134,13 @@ export default {
     },
     methods: {
         submit() {
-            axios.post('api/cash-payments', {
-                ...this.form,
-                supplier: this.form.supplier ? this.form.supplier.id : ''
+            axios({
+                method: this.payment ? 'patch' : 'post',
+                url: this.payment ? `api/cash-payments/${this.payment.id}` : `api/cash-payments`,
+                data: {
+                    ...this.form,
+                    supplier: this.form.supplier ? this.form.supplier.id : ''
+                }
             })
                 .then(response => {
 
@@ -167,6 +172,12 @@ export default {
                 date: new Date(),
                 note: ''
             }
+        },
+        setDefaults() {
+            this.form.supplier = this.receipt ? this.suppliers.find(supplier => supplier.id === this.receipt.supplier_id) : ''
+            this.form.amount = this.receipt ? this.receipt.amount : ''
+            this.form.date = this.receipt ? this.receipt.date : ''
+            this.form.note = this.receipt ? this.receipt.note : ''
         }
     }
 }

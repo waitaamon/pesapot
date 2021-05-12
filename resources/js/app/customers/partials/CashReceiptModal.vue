@@ -138,7 +138,7 @@ export default {
 
             axios({
                 method: this.receipt ? 'patch' : 'post',
-                url: this.receipt ? `api/cash-receipts/${this.receipt.id}` : `api/buildings`,
+                url: this.receipt ? `api/cash-receipts/${this.receipt.id}` : `api/cash-receipts`,
                 data: {
                     ...this.form,
                     customer: this.form.customer ? this.form.customer.id : ''

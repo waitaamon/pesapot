@@ -49,7 +49,7 @@
                     </app-drop-down>
                 </div>
 
-                <cash-payment-modal :suppliers="suppliers" @fetch-payments="fetchReceipts"/>
+                <cash-payment-modal :suppliers="suppliers" @fetch-payments="fetchReceipts" ref="paymentModal"/>
             </div>
         </div>
         <div class="mt-3">
@@ -77,9 +77,9 @@
                             class=" px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                             Date
                         </th>
-                        <!--                        <th scope="col" class="relative px-6 py-3">-->
-                        <!--                            <span class="sr-only">Edit</span>-->
-                        <!--                        </th>-->
+                        <th scope="col" class="relative px-6 py-3">
+                            <span class="sr-only">Edit</span>
+                        </th>
                     </tr>
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200">
@@ -99,9 +99,10 @@
                         <td class="px-6 py-4 whitespace-nowrap text-gray-500">
                             {{ payment.date }}
                         </td>
-                        <!--                        <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">-->
-                        <!--                            <a href="#" class="text-indigo-600 hover:text-indigo-900">Edit</a>-->
-                        <!--                        </td>-->
+                        <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                            <a @click.prevent="editPayment(payment)" href="#"
+                               class="text-indigo-600 hover:text-indigo-900">Edit</a>
+                        </td>
                     </tr>
                     </tbody>
                 </table>
@@ -166,6 +167,12 @@ export default {
             this.filters = data
             this.fetchReceipts()
         },
+
+        editPayment(payment) {
+            this.$refs.paymentModal.receipt = payment
+            this.$refs.paymentModal.showModal = true
+        },
+
         async exportSelected() {
             if (!this.selected.length) {
                 this.$toast.error('Select at least one record');

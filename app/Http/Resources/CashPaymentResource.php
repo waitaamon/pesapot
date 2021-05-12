@@ -13,6 +13,7 @@ class CashPaymentResource extends JsonResource
             'id' => $this->id,
             'supplier' => new SupplierResource($this->whenLoaded('supplier')),
             'supplier_name' => $this->supplier->name,
+            'supplier_id' => $this->supplier->id,
             'user' => new UserResource($this->whenLoaded('user')),
             'amount' => $this->amount,
             'status' => $this->status,
