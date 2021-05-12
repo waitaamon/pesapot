@@ -2883,7 +2883,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _this5 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4() {
-        var _this5$filters, _this5$filters$entity, _this5$filters2, _this5$filters2$statu, _this5$filters3, _this5$filters3$start, _this5$filters4, _this5$filters4$end, response;
+        var _this5$filters, _this5$filters$entity, _this5$filters2, _this5$filters2$statu, _this5$filters3, _this5$filters3$from, _this5$filters4, _this5$filters4$to, response;
 
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee4$(_context4) {
           while (1) {
@@ -2891,7 +2891,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 0:
                 _context4.prev = 0;
                 _context4.next = 3;
-                return axios.get("api/cash-receipts?per_page=".concat(_this5.perPage, "&customer=").concat((_this5$filters$entity = (_this5$filters = _this5.filters).entity) !== null && _this5$filters$entity !== void 0 ? _this5$filters$entity : _this5$filters.entity = '', "&status=").concat((_this5$filters2$statu = (_this5$filters2 = _this5.filters).status) !== null && _this5$filters2$statu !== void 0 ? _this5$filters2$statu : _this5$filters2.status = 'active', "&start=").concat((_this5$filters3$start = (_this5$filters3 = _this5.filters).start) !== null && _this5$filters3$start !== void 0 ? _this5$filters3$start : _this5$filters3.start = '', "&end=").concat((_this5$filters4$end = (_this5$filters4 = _this5.filters).end) !== null && _this5$filters4$end !== void 0 ? _this5$filters4$end : _this5$filters4.end = ''));
+                return axios.get("api/cash-receipts?per_page=".concat(_this5.perPage, "&customer=").concat((_this5$filters$entity = (_this5$filters = _this5.filters).entity) !== null && _this5$filters$entity !== void 0 ? _this5$filters$entity : _this5$filters.entity = '', "&status=").concat((_this5$filters2$statu = (_this5$filters2 = _this5.filters).status) !== null && _this5$filters2$statu !== void 0 ? _this5$filters2$statu : _this5$filters2.status = 'active', "&from=").concat((_this5$filters3$from = (_this5$filters3 = _this5.filters).from) !== null && _this5$filters3$from !== void 0 ? _this5$filters3$from : _this5$filters3.from = '', "&to=").concat((_this5$filters4$to = (_this5$filters4 = _this5.filters).to) !== null && _this5$filters4$to !== void 0 ? _this5$filters4$to : _this5$filters4.to = ''));
 
               case 3:
                 response = _context4.sent;
@@ -3746,7 +3746,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _this5 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee5() {
-        var _this5$filters, _this5$filters$entity, _this5$filters2, _this5$filters2$statu, _this5$filters3, _this5$filters3$start, _this5$filters4, _this5$filters4$end, response;
+        var _this5$filters, _this5$filters$entity, _this5$filters2, _this5$filters2$statu, _this5$filters3, _this5$filters3$from, _this5$filters4, _this5$filters4$to, response;
 
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee5$(_context5) {
           while (1) {
@@ -3754,7 +3754,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 0:
                 _context5.prev = 0;
                 _context5.next = 3;
-                return axios.get("api/cash-payments?per_page=".concat(_this5.perPage, "&supplier=").concat((_this5$filters$entity = (_this5$filters = _this5.filters).entity) !== null && _this5$filters$entity !== void 0 ? _this5$filters$entity : _this5$filters.entity = '', "&status=").concat((_this5$filters2$statu = (_this5$filters2 = _this5.filters).status) !== null && _this5$filters2$statu !== void 0 ? _this5$filters2$statu : _this5$filters2.status = 'active', "&start=").concat((_this5$filters3$start = (_this5$filters3 = _this5.filters).start) !== null && _this5$filters3$start !== void 0 ? _this5$filters3$start : _this5$filters3.start = '', "&end=").concat((_this5$filters4$end = (_this5$filters4 = _this5.filters).end) !== null && _this5$filters4$end !== void 0 ? _this5$filters4$end : _this5$filters4.end = ''));
+                return axios.get("api/cash-payments?per_page=".concat(_this5.perPage, "&supplier=").concat((_this5$filters$entity = (_this5$filters = _this5.filters).entity) !== null && _this5$filters$entity !== void 0 ? _this5$filters$entity : _this5$filters.entity = '', "&status=").concat((_this5$filters2$statu = (_this5$filters2 = _this5.filters).status) !== null && _this5$filters2$statu !== void 0 ? _this5$filters2$statu : _this5$filters2.status = 'active', "&from=").concat((_this5$filters3$from = (_this5$filters3 = _this5.filters).from) !== null && _this5$filters3$from !== void 0 ? _this5$filters3$from : _this5$filters3.from = '', "&to=").concat((_this5$filters4$to = (_this5$filters4 = _this5.filters).to) !== null && _this5$filters4$to !== void 0 ? _this5$filters4$to : _this5$filters4.to = ''));
 
               case 3:
                 response = _context5.sent;
@@ -4374,66 +4374,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "data-table-filters",
   props: {
@@ -4450,10 +4390,7 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       statuses: ['active', 'transferred', 'reversed'],
-      filters: {},
-      masks: {
-        input: 'DD-MM-YYYY'
-      }
+      filters: {}
     };
   },
   watch: {
@@ -4469,16 +4406,16 @@ __webpack_require__.r(__webpack_exports__);
       this.filters = {
         status: 'active',
         entity: '',
-        start: '',
-        end: ''
+        date_from: '',
+        date_to: ''
       };
     },
     applyFilters: function applyFilters() {
       var data = {
         entity: this.filters.entity ? this.filters.entity.id : '',
         status: this.filters.status,
-        start: this.filters.start ? this.filters.start.toDateString() : '',
-        end: this.filters.end ? this.filters.end.toDateString() : ''
+        from: this.filters.date_from,
+        to: this.filters.date_to
       };
       console.log(data);
       this.$emit('apply-filters', data);
@@ -66946,163 +66883,78 @@ var render = function() {
         )
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "col-span-4" }, [
+      _c("div", { staticClass: "col-span-2" }, [
         _c("div", [
           _c(
             "label",
             {
               staticClass: "block text-sm font-medium text-gray-700",
-              attrs: { for: "date" }
+              attrs: { for: "date_from" }
             },
-            [_vm._v("Select Date")]
+            [_vm._v("From")]
           ),
           _vm._v(" "),
           _c("div", { staticClass: "mt-1" }, [
-            _c(
-              "div",
-              { staticClass: "mb-4" },
-              [
-                _c("date-picker", {
-                  attrs: {
-                    mode: "date",
-                    masks: _vm.masks,
-                    "is-range": "",
-                    id: "date"
-                  },
-                  scopedSlots: _vm._u([
-                    {
-                      key: "default",
-                      fn: function(ref) {
-                        var inputValue = ref.inputValue
-                        var inputEvents = ref.inputEvents
-                        var isDragging = ref.isDragging
-                        return [
-                          _c(
-                            "div",
-                            {
-                              staticClass:
-                                "flex flex-col sm:flex-row justify-start items-center w-full"
-                            },
-                            [
-                              _c("div", { staticClass: "relative flex-grow" }, [
-                                _c(
-                                  "svg",
-                                  {
-                                    staticClass:
-                                      "text-gray-600 w-4 h-full mx-2 absolute pointer-events-none",
-                                    attrs: {
-                                      fill: "none",
-                                      "stroke-linecap": "round",
-                                      "stroke-linejoin": "round",
-                                      "stroke-width": "2",
-                                      viewBox: "0 0 24 24",
-                                      stroke: "currentColor"
-                                    }
-                                  },
-                                  [
-                                    _c("path", {
-                                      attrs: {
-                                        d:
-                                          "M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
-                                      }
-                                    })
-                                  ]
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "input",
-                                  _vm._g(
-                                    {
-                                      staticClass:
-                                        "flex-grow pl-8 pr-2 py-1 border rounded w-full",
-                                      class: isDragging
-                                        ? "text-gray-600"
-                                        : "text-gray-900",
-                                      domProps: { value: inputValue.start }
-                                    },
-                                    inputEvents.start
-                                  )
-                                )
-                              ]),
-                              _vm._v(" "),
-                              _c("span", { staticClass: "flex-shrink-0 m-2" }, [
-                                _c(
-                                  "svg",
-                                  {
-                                    staticClass:
-                                      "w-4 h-4 stroke-current text-gray-600",
-                                    attrs: { viewBox: "0 0 24 24" }
-                                  },
-                                  [
-                                    _c("path", {
-                                      attrs: {
-                                        "stroke-linecap": "round",
-                                        "stroke-linejoin": "round",
-                                        "stroke-width": "2",
-                                        d: "M14 5l7 7m0 0l-7 7m7-7H3"
-                                      }
-                                    })
-                                  ]
-                                )
-                              ]),
-                              _vm._v(" "),
-                              _c("div", { staticClass: "relative flex-grow" }, [
-                                _c(
-                                  "svg",
-                                  {
-                                    staticClass:
-                                      "text-gray-600 w-4 h-full mx-2 absolute pointer-events-none",
-                                    attrs: {
-                                      fill: "none",
-                                      "stroke-linecap": "round",
-                                      "stroke-linejoin": "round",
-                                      "stroke-width": "2",
-                                      viewBox: "0 0 24 24",
-                                      stroke: "currentColor"
-                                    }
-                                  },
-                                  [
-                                    _c("path", {
-                                      attrs: {
-                                        d:
-                                          "M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
-                                      }
-                                    })
-                                  ]
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "input",
-                                  _vm._g(
-                                    {
-                                      staticClass:
-                                        "flex-grow pl-8 pr-2 py-1 border rounded w-full",
-                                      class: isDragging
-                                        ? "text-gray-600"
-                                        : "text-gray-900",
-                                      domProps: { value: inputValue.end }
-                                    },
-                                    inputEvents.end
-                                  )
-                                )
-                              ])
-                            ]
-                          )
-                        ]
-                      }
-                    }
-                  ]),
-                  model: {
-                    value: _vm.filters,
-                    callback: function($$v) {
-                      _vm.filters = $$v
-                    },
-                    expression: "filters"
-                  }
-                })
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.filters.date_from,
+                  expression: "filters.date_from"
+                }
               ],
-              1
-            )
+              staticClass:
+                "shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md",
+              attrs: { type: "date", name: "date_from", id: "date_from" },
+              domProps: { value: _vm.filters.date_from },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.filters, "date_from", $event.target.value)
+                }
+              }
+            })
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-span-2" }, [
+        _c("div", [
+          _c(
+            "label",
+            {
+              staticClass: "block text-sm font-medium text-gray-700",
+              attrs: { for: "date_to" }
+            },
+            [_vm._v("To")]
+          ),
+          _vm._v(" "),
+          _c("div", { staticClass: "mt-1" }, [
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.filters.date_to,
+                  expression: "filters.date_to"
+                }
+              ],
+              staticClass:
+                "shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md",
+              attrs: { type: "date", name: "date_to", id: "date_to" },
+              domProps: { value: _vm.filters.date_to },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.filters, "date_to", $event.target.value)
+                }
+              }
+            })
           ])
         ])
       ]),

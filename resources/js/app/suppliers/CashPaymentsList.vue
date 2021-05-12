@@ -223,7 +223,7 @@ export default {
         async fetchReceipts() {
             try {
                 let response = await axios.get(
-                    `api/cash-payments?per_page=${this.perPage}&supplier=${this.filters.entity ??= ''}&status=${this.filters.status ??= 'active'}&start=${this.filters.start ??= ''}&end=${this.filters.end ??= ''}`
+                    `api/cash-payments?per_page=${this.perPage}&supplier=${this.filters.entity ??= ''}&status=${this.filters.status ??= 'active'}&from=${this.filters.from ??= ''}&to=${this.filters.to ??= ''}`
                 )
                 this.payments = response.data.data
                 this.paginationData = response.data.pagination
