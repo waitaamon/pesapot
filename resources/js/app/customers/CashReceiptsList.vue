@@ -196,7 +196,7 @@ export default {
             }
 
             try {
-                await axios.post(`api/cash-receipts`, {
+                await axios.post(`api/delete-cash-receipts`, {
                     receipts: this.selected
                 })
 

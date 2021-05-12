@@ -20,7 +20,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('api/cash-receipt-prerequisites', [\App\Http\Controllers\Api\CashReceiptsController::class, 'prerequisites']);
     Route::post('api/cash-receipt-mark-transferred', [\App\Http\Controllers\Api\CashReceiptActionsController::class, 'markTransferred']);
     Route::post('api/cash-receipt-export-excel', [\App\Http\Controllers\Api\CashReceiptActionsController::class, 'exportExcel']);
-    Route::post('api/cash-receipt-delete', [\App\Http\Controllers\Api\CashReceiptActionsController::class, 'destroy']);
+    Route::post('api/delete-cash-receipts', [\App\Http\Controllers\Api\CashReceiptActionsController::class, 'destroy']);
     Route::apiResource('api/cash-receipts', \App\Http\Controllers\Api\CashReceiptsController::class);
 
 
@@ -34,7 +34,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('api/cash-payment-prerequisites', [\App\Http\Controllers\Api\CashPaymentsController::class, 'prerequisites']);
     Route::post('api/cash-payment-mark-transferred', [\App\Http\Controllers\Api\CashPaymentActionsController::class, 'markTransferred']);
     Route::post('api/cash-payment-export-excel', [\App\Http\Controllers\Api\CashPaymentActionsController::class, 'exportExcel']);
-    Route::post('api/cash-payment-delete', [\App\Http\Controllers\Api\CashPaymentActionsController::class, 'destroy']);
+    Route::post('api/delete-cash-payments', [\App\Http\Controllers\Api\CashPaymentActionsController::class, 'destroy']);
     Route::apiResource('api/cash-payments', \App\Http\Controllers\Api\CashPaymentsController::class);
 
 });
