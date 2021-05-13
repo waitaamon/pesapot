@@ -13,7 +13,11 @@ class CashReceiptActionsController extends Controller
     public function markTransferred(Request $request)
     {
         CashReceipt::find($request->receipts)
-            ->each(fn($receipt) => $receipt->update(['status' => 'transferred']));
+            ->each(function ($receipt) {
+                if ($receipt->status == 'active') {
+                    $receipt->update(['status' => 'transferred']);
+                }
+            });
     }
 
     public function exportExcel(Request $request)

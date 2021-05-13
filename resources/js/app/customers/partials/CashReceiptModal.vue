@@ -160,6 +160,10 @@ export default {
                     this.$toast.error('The form submitted has errors');
                     return
                 }
+                if (e.response.status === 403 || e.response.status === 401) {
+                    this.$toast.error('You are unauthorized to perform this action.');
+                    return
+                }
                 this.$toast.error('Something went wrong try again later');
             })
         },

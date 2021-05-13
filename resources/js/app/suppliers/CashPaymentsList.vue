@@ -208,6 +208,10 @@ export default {
 
                 await this.fetchReceipts()
             } catch (e) {
+                if (e.response.status === 403 || e.response.status === 401) {
+                    this.$toast.error('You are unauthorized to perform this action.');
+                    return
+                }
                 this.$toast.error('Something went wrong try again later');
             }
         },
@@ -223,6 +227,10 @@ export default {
 
                 await this.fetchReceipts()
             } catch (e) {
+                if (e.response.status === 403 || e.response.status === 401) {
+                    this.$toast.error('You are unauthorized to perform this action.');
+                    return
+                }
                 this.$toast.error('Something went wrong try again later');
             }
         },

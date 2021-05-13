@@ -13,7 +13,11 @@ class CashPaymentActionsController extends Controller
     public function markTransferred(Request $request)
     {
         CashPayment::find($request->payments)
-            ->each(fn($payment) => $payment->update(['status' => 'transferred']));
+            ->each(function ($payment) {
+                if ($payment->status == 'active') {
+                    $payment->update(['status' => 'transferred']);
+                }
+            });
     }
 
     public function exportExcel(Request $request)

@@ -9,7 +9,8 @@
             New Cash Payment
         </button>
 
-        <Modal v-model="showModal" modalClass="max-width: 700px" title="New Cash Payment" v-on:before-open="setDefaults">
+        <Modal v-model="showModal" modalClass="max-width: 700px" title="New Cash Payment"
+               v-on:before-open="setDefaults">
             <div class="py-3">
                 <form class="space-y-4">
                     <div>
@@ -114,6 +115,7 @@
 <script>
 import AppDropDown from "../../../components/AppDropdown";
 import DropdownItem from "../../../components/partials/DropDownItem";
+
 export default {
     name: 'cash-payment-modal',
     components: {DropdownItem, AppDropDown},
@@ -158,6 +160,11 @@ export default {
                     this.$toast.error('The form submitted has errors');
                     return
                 }
+                if (e.response.status === 403 || e.response.status === 401) {
+                    this.$toast.error('You are unauthorized to perform this action.');
+                    return
+                }
+
                 this.$toast.error('Something went wrong try again later');
             })
         },
