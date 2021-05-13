@@ -59,7 +59,7 @@ export default {
     },
     data() {
         return {
-            statuses: ['active', 'transferred', 'reversed'],
+            statuses: ['active', 'transferred'],
             filters: {},
         }
     },

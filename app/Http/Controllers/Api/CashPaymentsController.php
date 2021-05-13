@@ -54,6 +54,8 @@ class CashPaymentsController extends Controller
     {
         $payment = CashPayment::findOrFail($id);
 
+        abort_if($payment->status == 'transferred', 403, 'You are unauthorized to perform this action');
+
         $payment->update(array_merge($request->only('amount', 'note'), [
             'supplier_id' => $request->supplier,
             'date' => Carbon::parse($request->date)
@@ -65,6 +67,8 @@ class CashPaymentsController extends Controller
     public function destroy(int $id)
     {
         $payment = CashPayment::findOrFail($id);
+
+        abort_if($payment->status == 'transferred', 403, 'You are unauthorized to perform this action');
 
         $payment->delete();
     }

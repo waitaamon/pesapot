@@ -44,7 +44,7 @@ class CustomersController extends Controller
     {
         $customer = Customer::findOrfail($id);
 
-        if ($customer->receipts()->exists()) return;
+        abort_if($customer->receipts()->exists(), 403, 'You are unauthorized to perform this action');
 
         $customer->delete();
     }

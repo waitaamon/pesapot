@@ -54,6 +54,8 @@ class CashReceiptsController extends Controller
     {
         $receipt = CashReceipt::findOrFail($id);
 
+        abort_if($receipt->status == 'transferred', 403, 'You are unauthorized to perform this action');
+
         $receipt->update(array_merge($request->only('amount', 'note'), [
             'customer_id' => $request->customer,
             'date' => Carbon::parse($request->date)
@@ -65,6 +67,8 @@ class CashReceiptsController extends Controller
     public function destroy(int $id)
     {
         $receipt = CashReceipt::findOrFail($id);
+
+        abort_if($receipt->status == 'transferred', 403, 'You are unauthorized to perform this action');
 
         $receipt->delete();
     }

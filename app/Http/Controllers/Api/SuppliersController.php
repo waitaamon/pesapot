@@ -44,7 +44,7 @@ class SuppliersController extends Controller
     {
         $supplier = Supplier::findOrfail($id);
 
-        if ($supplier->payments()->exists()) return;
+        abort_if($supplier->payments()->exists(), 403, 'You are unauthorized to perform this action');
 
         $supplier->delete();
     }
