@@ -27,6 +27,7 @@ class CashPaymentsController extends Controller
             ->when(request()->filled('supplier'), fn($query) => $query->where('supplier_id', request()->get('supplier')))
             ->when(request()->filled('from'), fn($query) => $query->whereDate('date', '>=', Carbon::parse(request()->get('from'))))
             ->when(request()->filled('to'), fn($query) => $query->whereDate('date', '<=', Carbon::parse(request()->get('to'))))
+            ->orderBy('date', 'desc')
             ->paginate(request()->get('per_page'));
 
         return response(new CashPaymentsCollection($payments));

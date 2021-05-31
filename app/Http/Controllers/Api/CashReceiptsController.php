@@ -27,6 +27,7 @@ class CashReceiptsController extends Controller
             ->when(request()->filled('customer'), fn($query) => $query->where('customer_id', request()->get('customer')))
             ->when(request()->filled('from'), fn($query) => $query->whereDate('date', '>=', Carbon::parse(request()->get('from'))))
             ->when(request()->filled('to'), fn($query) => $query->whereDate('date', '<=', Carbon::parse(request()->get('to'))))
+            ->orderBy('date', 'desc')
             ->paginate(request()->get('per_page'));
 
         return response(new CashReceiptsCollection($receipts));
