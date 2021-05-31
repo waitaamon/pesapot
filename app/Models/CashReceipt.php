@@ -3,8 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\{Model, SoftDeletes};
 use Illuminate\Database\Eloquent\Relations\{BelongsTo};
+use Illuminate\Database\Eloquent\{Builder, Model, SoftDeletes};
 
 class CashReceipt extends Model
 {
@@ -30,4 +30,8 @@ class CashReceipt extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function scopeActive(Builder $query): Builder
+    {
+        return $query->where('status', 'active')->where('status', 'transferred');
+    }
 }
