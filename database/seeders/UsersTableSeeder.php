@@ -33,6 +33,12 @@ class UsersTableSeeder extends Seeder
                 'password' => 'user1@100',
                 'is_admin' => false
             ],
+            [
+                'name' => 'GM',
+                'email' => 'gm@pesapot.com',
+                'password' => 'gm#2020',
+                'is_admin' => false
+            ],
         ];
 
         collect($users)->each(function ($user) {
