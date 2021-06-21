@@ -45,7 +45,8 @@
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium space-x-2">
 <!--                            <a :href="`/customers/${customer.id}`" class="text-indigo-600 hover:text-indigo-900">View</a>-->
-                            <a href="#" class="text-red-300 hover:text-red-500" @click.prevent="editCustomer(customer)">Edit</a>
+                            <a href="#" class="text-orange-300 hover:text-orange-500" @click.prevent="editCustomer(customer)">Edit</a>
+                            <a href="#" class="text-red-300 hover:text-red-500" @click.prevent="deleteCustomer(customer)">Delete</a>
                         </td>
                     </tr>
                     </tbody>
@@ -90,6 +91,24 @@ export default {
                 this.paginationData = response.data.pagination
             } catch (e) {
                 console.error('could not fetch customers')
+            }
+        },
+        async deleteCustomer(customer) {
+            try {
+                if (!confirm('Do you want to delete this customer?')) return
+
+                await axios.delete(`api/customers/${customer.id}`)
+
+                this.$toasted.success('Customer deleted successfully')
+
+                await this.fetchCustomers()
+
+            } catch (e) {
+                if (e.response.data.message) {
+                    this.$toasted.error(e.response.data.message)
+                    return
+                }
+                this.$toasted.error('Something Went wrong try again later!')
             }
         }
     },

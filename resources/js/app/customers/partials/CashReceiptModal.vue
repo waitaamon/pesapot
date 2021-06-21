@@ -157,14 +157,15 @@ export default {
                 }).catch(e => {
                 if (e.response.status === 422) {
                     this.errors = e.response.data.errors
-                    this.$toast.error('The form submitted has errors');
+                    this.$toasted.error('The form submitted has errors');
                     return
                 }
                 if (e.response.status === 403 || e.response.status === 401) {
-                    this.$toast.error('You are unauthorized to perform this action.');
+                    this.$toasted.error('You are unauthorized to perform this action.');
                     return
                 }
-                this.$toast.error('Something went wrong try again later');
+                this.$toasted.error('Something went wrong try again later!');
+
             })
         },
         saveAndNew() {

@@ -76,10 +76,10 @@ export default {
                 }).catch(e => {
                 if (e.response.status === 422) {
                     this.errors = e.response.data.errors
-                    this.$toast.error('The form submitted has errors');
+                    this.$toasted.error('The form submitted has errors');
                     return
                 }
-                this.$toast.error('Something went wrong try again later');
+                this.$toasted.error('Something went wrong try again later');
 
             })
         },

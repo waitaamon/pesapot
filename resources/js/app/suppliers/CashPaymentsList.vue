@@ -151,7 +151,7 @@ export default {
                 let response = await axios.get('api/cash-payment-prerequisites')
                 this.suppliers = response.data.suppliers
             } catch (e) {
-                this.$toast.error('Something went wrong try again later');
+                this.$toasted.error('Something went wrong try again later');
             }
         },
         applyPagination(data) {
@@ -175,7 +175,7 @@ export default {
 
         async exportSelected() {
             if (!this.selected.length) {
-                this.$toast.error('Select at least one record');
+                this.$toasted.error('Select at least one record');
                 return
             }
 
@@ -192,12 +192,12 @@ export default {
                 document.body.appendChild(link);
                 link.click();
             }).catch(e => {
-                this.$toast.error('Something went wrong try again later');
+                this.$toasted.error('Something went wrong try again later');
             })
         },
         async deleteSelected() {
             if (!this.selected.length) {
-                this.$toast.error('Select at least one record');
+                this.$toasted.error('Select at least one record');
                 return
             }
 
@@ -209,15 +209,15 @@ export default {
                 await this.fetchReceipts()
             } catch (e) {
                 if (e.response.status === 403 || e.response.status === 401) {
-                    this.$toast.error('You are unauthorized to perform this action.');
+                    this.$toasted.error('You are unauthorized to perform this action.');
                     return
                 }
-                this.$toast.error('Something went wrong try again later');
+                this.$toasted.error('Something went wrong try again later');
             }
         },
         async markTransfer() {
             if (!this.selected.length) {
-                this.$toast.error('Select at least one record');
+                this.$toasted.error('Select at least one record');
                 return
             }
             try {
@@ -228,10 +228,10 @@ export default {
                 await this.fetchReceipts()
             } catch (e) {
                 if (e.response.status === 403 || e.response.status === 401) {
-                    this.$toast.error('You are unauthorized to perform this action.');
+                    this.$toasted.error('You are unauthorized to perform this action.');
                     return
                 }
-                this.$toast.error('Something went wrong try again later');
+                this.$toasted.error('Something went wrong try again later');
             }
         },
 
@@ -243,7 +243,7 @@ export default {
                 this.payments = response.data.data
                 this.paginationData = response.data.pagination
             } catch (e) {
-                this.$toast.error('Something went wrong try again later');
+                this.$toasted.error('Something went wrong try again later');
             }
         }
     },
