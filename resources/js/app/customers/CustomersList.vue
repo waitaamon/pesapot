@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="flex justify-end">
-            <customer-modal @fetch-customers="fetchCustomers" ref="customerModal"/>
+            <customer-modal @fetch-customers="fetchCustomers" @reset-customer="customer = null" ref="customerModal"/>
         </div>
         <div class="mt-3">
             <div class="overflow-hidden border-b border-gray-200 sm:rounded">
@@ -44,9 +44,10 @@
                             {{ customer.created_at }}
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium space-x-2">
-<!--                            <a :href="`/customers/${customer.id}`" class="text-indigo-600 hover:text-indigo-900">View</a>-->
-                            <a href="#" class="text-orange-300 hover:text-orange-500" @click.prevent="editCustomer(customer)">Edit</a>
-                            <a href="#" class="text-red-300 hover:text-red-500" @click.prevent="deleteCustomer(customer)">Delete</a>
+                            <a href="#" class="text-orange-300 hover:text-orange-500"
+                               @click.prevent="editCustomer(customer)">Edit</a>
+                            <a href="#" class="text-red-300 hover:text-red-500"
+                               @click.prevent="deleteCustomer(customer)">Delete</a>
                         </td>
                     </tr>
                     </tbody>
@@ -66,6 +67,7 @@ export default {
     components: {TablePagination, CustomerModal},
     data() {
         return {
+            customer: null,
             customers: [],
             paginationData: {},
             perPage: 50,
@@ -81,7 +83,7 @@ export default {
             this.fetchCustomers()
         },
         editCustomer(customer) {
-            this.$refs.customerModal.customer = customer
+            this.customer = customer
             this.$refs.customerModal.showModal = true
         },
         async fetchCustomers() {
