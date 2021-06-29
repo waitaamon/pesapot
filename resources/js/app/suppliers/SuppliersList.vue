@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="flex justify-end">
-            <supplier-modal @fetch-suppliers="fetchSuppliers" ref="supplierModal"/>
+            <supplier-modal @fetch-suppliers="fetchSuppliers" @reset-supplier="supplier = null" ref="supplierModal"/>
         </div>
         <div class="mt-3">
             <div class="overflow-hidden border-b border-gray-200 sm:rounded">
@@ -68,6 +68,7 @@ export default {
     components: {TablePagination, SupplierModal},
     data() {
         return {
+            supplier: null,
             suppliers: [],
             paginationData: {},
             perPage: 50,
@@ -83,9 +84,10 @@ export default {
             this.fetchSuppliers()
         },
         editSupplier(supplier) {
-            this.$refs.supplierModal.supplier = supplier
+            this.supplier = supplier
             this.$refs.supplierModal.showModal = true
         },
+
         async fetchSuppliers() {
             try {
                 let response = await axios.get(`api/suppliers?per_page=${this.perPage}`)

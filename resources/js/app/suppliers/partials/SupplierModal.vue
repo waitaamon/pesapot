@@ -8,7 +8,8 @@
             New Supplier
         </button>
 
-        <Modal v-model="showModal" modalClass="max-width: 700px" title="New Supplier" v-on:before-open="setDefaults">
+        <Modal v-model="showModal" modalClass="max-width: 700px" title="New Supplier" v-on:before-open="initializeForm"
+               v-on:before-close="resetForm" :enable-close="false">
             <div class="py-3">
                 <form class="space-y-3">
                     <div>
@@ -23,21 +24,32 @@
                                 errors.name[0]
                             }}</p>
                     </div>
-                    <div class="flex justify-end space-x-2">
-                        <button
-                            type="button"
-                            class="inline-flex items-center px-2.5 py-1.5 border border-gray-300 shadow-sm text-xs font-medium rounded text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                            @click="saveAndNew"
-                        >
-                            Save and New
-                        </button>
-                        <button
-                            type="button"
-                            class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150"
-                            @click.prevent="submit"
-                        >
-                            Save
-                        </button>
+                    <div class="flex justify-between">
+                        <div>
+                            <button
+                                type="button"
+                                class="inline-flex items-center px-2.5 py-1.5 border border-red-300 shadow-sm text-xs font-medium rounded text-red-700 bg-white hover:bg-red-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+                                @click.prevent="showModal = false"
+                            >
+                                Close
+                            </button>
+                        </div>
+                        <div class="space-x-2">
+                            <button
+                                type="button"
+                                class="inline-flex items-center px-2.5 py-1.5 border border-gray-300 shadow-sm text-xs font-medium rounded text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                                @click="saveAndNew"
+                            >
+                                Save and New
+                            </button>
+                            <button
+                                type="button"
+                                class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150"
+                                @click.prevent="submit"
+                            >
+                                Save
+                            </button>
+                        </div>
                     </div>
                 </form>
 
@@ -53,49 +65,50 @@ export default {
         return {
             showModal: false,
             closeAfterSave: true,
-            supplier: null,
             errors: {},
             form: {
-                name: this.supplier ? this.supplier.name : ''
+                name: ''
             }
         }
     },
     methods: {
-        submit() {
-            axios.post('api/suppliers', this.form)
-                .then(response => {
+        async submit() {
+            try {
+                await axios({
+                    method: this.$parent.supplier ? 'patch' : "post",
+                    url: this.$parent.supplier ? `api/suppliers/${this.$parent.supplier.id}` : 'api/suppliers',
+                    data: this.form
+                })
 
-                    this.resetForm()
+                this.resetForm()
 
-                    this.$emit('fetch-suppliers', true)
+                this.$emit('fetch-suppliers', true)
 
-                    if (this.closeAfterSave) {
-                        this.showModal = false
-                    }
-
-                }).catch(e => {
+                if (this.closeAfterSave) {
+                    this.showModal = false
+                }
+            }catch (e) {
                 if (e.response.status === 422) {
                     this.errors = e.response.data.errors
                     this.$toasted.error('The form submitted has errors');
                     return
                 }
                 this.$toasted.error('Something went wrong try again later');
-
-            })
+            }
         },
         saveAndNew() {
             this.closeAfterSave = false
             this.submit()
         },
         resetForm() {
-            this.supplier = null
+            this.$emit('reset-supplier')
             this.errors = []
             this.form = {
                 name: ''
             }
         },
-        setDefaults() {
-            this.form.name = this.supplier ? this.supplier.name : ''
+        initializeForm() {
+            this.form.name = this.$parent.supplier ? this.$parent.supplier.name : ''
         }
     },
 }

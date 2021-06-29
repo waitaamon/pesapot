@@ -4056,6 +4056,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   data: function data() {
     return {
+      supplier: null,
       suppliers: [],
       paginationData: {},
       perPage: 50
@@ -4071,7 +4072,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.fetchSuppliers();
     },
     editSupplier: function editSupplier(supplier) {
-      this.$refs.supplierModal.supplier = supplier;
+      this.supplier = supplier;
       this.$refs.supplierModal.showModal = true;
     },
     fetchSuppliers: function fetchSuppliers() {
@@ -4400,6 +4401,26 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -4454,10 +4475,9 @@ __webpack_require__.r(__webpack_exports__);
     return {
       showModal: false,
       closeAfterSave: true,
-      supplier: null,
       errors: {},
       form: {
-        name: this.supplier ? this.supplier.name : ''
+        name: ''
       }
     };
   },
@@ -4465,39 +4485,70 @@ __webpack_require__.r(__webpack_exports__);
     submit: function submit() {
       var _this = this;
 
-      axios.post('api/suppliers', this.form).then(function (response) {
-        _this.resetForm();
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.prev = 0;
+                _context.next = 3;
+                return axios({
+                  method: _this.$parent.supplier ? 'patch' : "post",
+                  url: _this.$parent.supplier ? "api/suppliers/".concat(_this.$parent.supplier.id) : 'api/suppliers',
+                  data: _this.form
+                });
 
-        _this.$emit('fetch-suppliers', true);
+              case 3:
+                _this.resetForm();
 
-        if (_this.closeAfterSave) {
-          _this.showModal = false;
-        }
-      })["catch"](function (e) {
-        if (e.response.status === 422) {
-          _this.errors = e.response.data.errors;
+                _this.$emit('fetch-suppliers', true);
 
-          _this.$toasted.error('The form submitted has errors');
+                if (_this.closeAfterSave) {
+                  _this.showModal = false;
+                }
 
-          return;
-        }
+                _context.next = 15;
+                break;
 
-        _this.$toasted.error('Something went wrong try again later');
-      });
+              case 8:
+                _context.prev = 8;
+                _context.t0 = _context["catch"](0);
+
+                if (!(_context.t0.response.status === 422)) {
+                  _context.next = 14;
+                  break;
+                }
+
+                _this.errors = _context.t0.response.data.errors;
+
+                _this.$toasted.error('The form submitted has errors');
+
+                return _context.abrupt("return");
+
+              case 14:
+                _this.$toasted.error('Something went wrong try again later');
+
+              case 15:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, null, [[0, 8]]);
+      }))();
     },
     saveAndNew: function saveAndNew() {
       this.closeAfterSave = false;
       this.submit();
     },
     resetForm: function resetForm() {
-      this.supplier = null;
+      this.$emit('reset-supplier');
       this.errors = [];
       this.form = {
         name: ''
       };
     },
-    setDefaults: function setDefaults() {
-      this.form.name = this.supplier ? this.supplier.name : '';
+    initializeForm: function initializeForm() {
+      this.form.name = this.$parent.supplier ? this.$parent.supplier.name : '';
     }
   }
 });
@@ -66489,7 +66540,12 @@ var render = function() {
       [
         _c("supplier-modal", {
           ref: "supplierModal",
-          on: { "fetch-suppliers": _vm.fetchSuppliers }
+          on: {
+            "fetch-suppliers": _vm.fetchSuppliers,
+            "reset-supplier": function($event) {
+              _vm.supplier = null
+            }
+          }
         })
       ],
       1
@@ -67103,8 +67159,15 @@ var render = function() {
       _c(
         "Modal",
         {
-          attrs: { modalClass: "max-width: 700px", title: "New Supplier" },
-          on: { "before-open": _vm.setDefaults },
+          attrs: {
+            modalClass: "max-width: 700px",
+            title: "New Supplier",
+            "enable-close": false
+          },
+          on: {
+            "before-open": _vm.initializeForm,
+            "before-close": _vm.resetForm
+          },
           model: {
             value: _vm.showModal,
             callback: function($$v) {
@@ -67172,41 +67235,65 @@ var render = function() {
                   : _vm._e()
               ]),
               _vm._v(" "),
-              _c("div", { staticClass: "flex justify-end space-x-2" }, [
-                _c(
-                  "button",
-                  {
-                    staticClass:
-                      "inline-flex items-center px-2.5 py-1.5 border border-gray-300 shadow-sm text-xs font-medium rounded text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500",
-                    attrs: { type: "button" },
-                    on: { click: _vm.saveAndNew }
-                  },
-                  [
-                    _vm._v(
-                      "\n                        Save and New\n                    "
-                    )
-                  ]
-                ),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass:
-                      "inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150",
-                    attrs: { type: "button" },
-                    on: {
-                      click: function($event) {
-                        $event.preventDefault()
-                        return _vm.submit.apply(null, arguments)
+              _c("div", { staticClass: "flex justify-between" }, [
+                _c("div", [
+                  _c(
+                    "button",
+                    {
+                      staticClass:
+                        "inline-flex items-center px-2.5 py-1.5 border border-red-300 shadow-sm text-xs font-medium rounded text-red-700 bg-white hover:bg-red-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500",
+                      attrs: { type: "button" },
+                      on: {
+                        click: function($event) {
+                          $event.preventDefault()
+                          _vm.showModal = false
+                        }
                       }
-                    }
-                  },
-                  [
-                    _vm._v(
-                      "\n                        Save\n                    "
-                    )
-                  ]
-                )
+                    },
+                    [
+                      _vm._v(
+                        "\n                            Close\n                        "
+                      )
+                    ]
+                  )
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "space-x-2" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass:
+                        "inline-flex items-center px-2.5 py-1.5 border border-gray-300 shadow-sm text-xs font-medium rounded text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500",
+                      attrs: { type: "button" },
+                      on: { click: _vm.saveAndNew }
+                    },
+                    [
+                      _vm._v(
+                        "\n                            Save and New\n                        "
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass:
+                        "inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150",
+                      attrs: { type: "button" },
+                      on: {
+                        click: function($event) {
+                          $event.preventDefault()
+                          return _vm.submit.apply(null, arguments)
+                        }
+                      }
+                    },
+                    [
+                      _vm._v(
+                        "\n                            Save\n                        "
+                      )
+                    ]
+                  )
+                ])
               ])
             ])
           ])
